@@ -3,11 +3,12 @@ import { User } from '../types';
 interface UserListProps {
   users: User[];
   currentUserId?: string;
+  className?: string;
 }
 
-export const UserList = ({ users, currentUserId }: UserListProps) => {
+export const UserList = ({ users, currentUserId, className = '' }: UserListProps) => {
   return (
-    <div className="users-sidebar">
+    <div className={`users-sidebar ${className}`}>
       <h3>
         Онлайн ({users.length})
       </h3>

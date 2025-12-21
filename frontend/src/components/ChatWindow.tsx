@@ -1,4 +1,4 @@
-import { useEffect, useRef } from 'react';
+import { useEffect, useRef, useState } from 'react';
 import { MessageList } from './MessageList';
 import { MessageInput } from './MessageInput';
 import { UserList } from './UserList';
@@ -19,6 +19,7 @@ export const ChatWindow = ({ socket, isConnected, nickname, onLogout }: ChatWind
   });
   
   const nicknameSetRef = useRef(false);
+  const [showUserList, setShowUserList] = useState(false);
 
   // Устанавливаем никнейм один раз при подключении
   useEffect(() => {
@@ -33,7 +34,16 @@ export const ChatWindow = ({ socket, isConnected, nickname, onLogout }: ChatWind
     <div className="chat-container">
       <div className="chat-main">
         <div className="chat-header">
-          <h1>MIN Chat</h1>
+          <div className="chat-header-left">
+            <button 
+              className="btn-burger"
+              onClick={() => setShowUserList(!showUserList)}
+              aria-label="Показать список пользователей"
+            >
+              ☰
+            </button>
+            <h1>MIN Chat</h1>
+          </div>
           <div className="chat-header-user">
             {currentUser && (
               <>
@@ -58,7 +68,18 @@ export const ChatWindow = ({ socket, isConnected, nickname, onLogout }: ChatWind
         />
       </div>
 
-      <UserList users={users} currentUserId={currentUser?.id} />
+      {showUserList && (
+        <div 
+          className="sidebar-overlay"
+          onClick={() => setShowUserList(false)}
+        />
+      )}
+      
+      <UserList 
+        users={users} 
+        currentUserId={currentUser?.id}
+        className={showUserList ? 'show' : ''}
+      />
     </div>
   );
 };
