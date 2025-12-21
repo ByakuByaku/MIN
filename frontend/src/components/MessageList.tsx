@@ -23,18 +23,9 @@ export const MessageList = ({ messages, currentUserId }: MessageListProps) => {
   };
 
   return (
-    <div style={{
-      flex: 1,
-      overflowY: 'auto',
-      padding: '20px',
-      backgroundColor: '#f5f5f5',
-    }}>
+    <div className="messages-container">
       {messages.length === 0 ? (
-        <div style={{
-          textAlign: 'center',
-          color: '#999',
-          marginTop: '50px',
-        }}>
+        <div className="messages-empty">
           Нет сообщений. Начните общение!
         </div>
       ) : (
@@ -44,40 +35,18 @@ export const MessageList = ({ messages, currentUserId }: MessageListProps) => {
           return (
             <div
               key={message.id}
-              style={{
-                marginBottom: '15px',
-                display: 'flex',
-                flexDirection: 'column',
-                alignItems: isOwnMessage ? 'flex-end' : 'flex-start',
-              }}
+              className={`message ${isOwnMessage ? 'own' : 'other'}`}
             >
-              <div style={{
-                maxWidth: '70%',
-                backgroundColor: isOwnMessage ? '#0084ff' : '#fff',
-                color: isOwnMessage ? '#fff' : '#000',
-                padding: '10px 15px',
-                borderRadius: '18px',
-                boxShadow: '0 1px 2px rgba(0,0,0,0.1)',
-              }}>
+              <div className="message-bubble">
                 {!isOwnMessage && (
-                  <div style={{
-                    fontSize: '12px',
-                    fontWeight: 'bold',
-                    marginBottom: '5px',
-                    opacity: 0.8,
-                  }}>
+                  <div className="message-author">
                     {message.userName}
                   </div>
                 )}
-                <div style={{ wordBreak: 'break-word' }}>
+                <div>
                   {message.text}
                 </div>
-                <div style={{
-                  fontSize: '11px',
-                  marginTop: '5px',
-                  opacity: 0.7,
-                  textAlign: 'right',
-                }}>
+                <div className="message-time">
                   {formatTime(message.timestamp)}
                 </div>
               </div>

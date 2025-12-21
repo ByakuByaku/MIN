@@ -24,7 +24,13 @@ export const useChat = ({ socket, isConnected }: UseChatProps) => {
     // Новый пользователь подключился
     socket.on('user:joined', (user: User) => {
       console.log('[chat] user joined:', user);
-      setUsers(prev => [...prev, user]);
+      setUsers(prev => {
+        // Проверяем что пользователь еще не в списке
+        if (prev.some(u => u.id === user.id)) {
+          return prev;
+        }
+        return [...prev, user];
+      });
     });
 
     // Пользователь отключился

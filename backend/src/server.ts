@@ -31,10 +31,13 @@ app.get('/api/health', (_req, res) => {
 io.on('connection', socket => {
   console.info('[socket] connected:', socket.id);
 
-  // Создаем пользователя с дефолтным ником
+  // Получаем никнейм из auth при подключении
+  const nickname = socket.handshake.auth?.nickname || `User${socket.id.substring(0, 4)}`;
+
+  // Создаем пользователя
   const user: User = {
     id: socket.id,
-    nick: `User${socket.id.substring(0, 4)}`,
+    nick: nickname,
   };
   users.set(socket.id, user);
 
