@@ -21,7 +21,7 @@ function App() {
   return (
     <div className="app-container">
       {!nickname ? (
-        <LoginForm onLogin={handleLogin} isConnected={false} />
+        <LoginForm onLogin={handleLogin} />
       ) : (
         <ChatWindow 
           socket={socket} 
