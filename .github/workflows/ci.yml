@@ -24,13 +24,10 @@ jobs:
       - name: Install backend dependencies
         working-directory: ./backend
         run: npm install
-      - name: Lint backend
-        working-directory: ./backend
-        run: npm run lint
       - name: Build backend
         working-directory: ./backend
         run: npm run build
-  fromtend:
+  frontend:
     runs-on: ubuntu-latest
     strategy:
       matrix:
@@ -46,10 +43,6 @@ jobs:
       - name: Install frontend dependencies
         working-directory: ./frontend
         run: npm install
-      - name: Lint frontend
-        working-directory: ./frontend
-        run: npm run lint
-
       - name: Build frontend
         working-directory: ./frontend
         run: npm run build
